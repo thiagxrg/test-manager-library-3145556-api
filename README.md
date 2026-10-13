@@ -1,4 +1,4 @@
-# test-manager-library-3145556-api
+      # test-manager-library-3145556-api
 
 > **Prueba técnica · Ficha ADSO 3145556**
 > Entrega: **martes 13 de octubre de 2026, a las 5:00 p. m.** (17:00, hora Colombia).
