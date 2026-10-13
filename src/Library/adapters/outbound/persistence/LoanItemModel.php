@@ -27,4 +27,9 @@ class LoanItemModel extends Model
         'due_at' => 'datetime',
         'returned_at' => 'datetime',
     ];
+
+    public function loan()
+    {
+        return $this->belongsTo(LoanModel::class, 'loan_id');
+    }
 }

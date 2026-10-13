@@ -27,4 +27,9 @@ class LoanModel extends Model
     {
         return $this->hasMany(LoanItemModel::class, 'loan_id');
     }
+
+    public function member()
+    {
+        return $this->belongsTo(MemberModel::class, 'member_id');
+    }
 }
