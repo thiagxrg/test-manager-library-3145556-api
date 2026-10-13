@@ -1,6 +1,6 @@
 <?php
 
-use App\Infrastructure\Persistence\Eloquent\UserModel;
+use Library\Adapters\Outbound\Persistence\UserModel;
 
 return [
 

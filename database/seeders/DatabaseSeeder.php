@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Domain\Entities\User as DomainUser;
-use App\Infrastructure\Persistence\Eloquent\UserModel;
+use Library\Adapters\Outbound\Persistence\UserModel;
+use Library\Domain\User as DomainUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
