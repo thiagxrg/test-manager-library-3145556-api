@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Persistence\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class CategoryModel extends Model
 {
     protected $table = 'category';
 

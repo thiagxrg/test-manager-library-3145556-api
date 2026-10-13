@@ -11,7 +11,7 @@ final class Quantity
     public function __construct(int $value)
     {
         if ($value < 1) {
-            throw new InvalidArgumentException('La cantidad debe ser mayor o igual a 1.');
+            throw new InvalidArgumentException('Quantity must be greater than or equal to 1.');
         }
 
         $this->value = $value;

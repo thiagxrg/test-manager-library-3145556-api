@@ -13,7 +13,7 @@ final class DateRange
     public function __construct(DateTimeInterface $start, DateTimeInterface $end)
     {
         if ($end < $start) {
-            throw new InvalidArgumentException('El fin del rango no puede ser anterior al inicio.');
+            throw new InvalidArgumentException('The range end date cannot be before the start date.');
         }
 
         $this->start = $start;

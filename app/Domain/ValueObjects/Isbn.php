@@ -11,7 +11,7 @@ final class Isbn
     public function __construct(string $value)
     {
         if (! preg_match('/^\d{13}$/', $value)) {
-            throw new InvalidArgumentException('El ISBN debe tener exactamente 13 dígitos.');
+            throw new InvalidArgumentException('ISBN must be exactly 13 digits.');
         }
 
         $this->value = $value;

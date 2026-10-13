@@ -1,12 +1,17 @@
-# Decisiones técnicas — Manager Library (Laravel)
+# Technical decisions — Manager Library (Laravel)
 
-La documentación completa de la traducción del spec a React + Laravel vive en el fork de
-[`test-manager-library-3145556-docs`](https://github.com/thiagxrg/test-manager-library-3145556-docs), carpeta
-**`spec-php/`**, con la misma estructura que `spec-python/` y `spec-.net/`:
+The full documentation of the spec's translation to React + Laravel lives in the
+[`test-manager-library-3145556-docs`](https://github.com/thiagxrg/test-manager-library-3145556-docs) fork,
+folder **`spec-php/`**, with the same structure as `spec-python/` and `spec-.net/`:
 
-1. [`constitution.md`](../test-manager-library-3145556-docs/spec-php/constitution.md) — principios y compromisos declarados del stack
-2. [`plan.md`](../test-manager-library-3145556-docs/spec-php/plan.md) — decisiones técnicas D-01 a D-12
-3. [`architecture.md`](../test-manager-library-3145556-docs/spec-php/architecture.md) y [`arquitectura-panoramica.md`](../test-manager-library-3145556-docs/spec-php/arquitectura-panoramica.md)
-4. [`data-model.md`](../test-manager-library-3145556-docs/spec-php/data-model.md) y [`api-contract.md`](../test-manager-library-3145556-docs/spec-php/api-contract.md) — idénticos a los de referencia, el negocio no cambia con el lenguaje
-5. [`tasks.md`](../test-manager-library-3145556-docs/spec-php/tasks.md) — tareas con su evidencia
-6. [`adr/`](../test-manager-library-3145556-docs/spec-php/adr/) — decisiones de arquitectura
+1. [`constitution.md`](../test-manager-library-3145556-docs/spec-php/constitution.md) — principles and declared stack trade-offs (including the language deviation, Article XI)
+2. [`plan.md`](../test-manager-library-3145556-docs/spec-php/plan.md) — technical decisions D-01 to D-12
+3. [`architecture.md`](../test-manager-library-3145556-docs/spec-php/architecture.md) and [`architecture-overview.md`](../test-manager-library-3145556-docs/spec-php/architecture-overview.md)
+4. [`data-model.md`](../test-manager-library-3145556-docs/spec-php/data-model.md) and [`api-contract.md`](../test-manager-library-3145556-docs/spec-php/api-contract.md) — business-identical to the reference, only translated to English
+5. [`tasks.md`](../test-manager-library-3145556-docs/spec-php/tasks.md) — tasks with their evidence
+6. [`adr/`](../test-manager-library-3145556-docs/spec-php/adr/) — architecture decision records
+
+**Note:** this fork made two explicit decisions that deviate from the reference spec, both documented above:
+(1) strict hexagonal architecture (plain-PHP domain entities, ports, Eloquent only in adapters) instead of a
+pragmatic Eloquent-in-domain approach; (2) all documentation and API error messages in English instead of
+Spanish (constitution Article XI).

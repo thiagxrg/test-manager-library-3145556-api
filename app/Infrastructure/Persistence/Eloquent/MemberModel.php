@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Persistence\Eloquent;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class MemberModel extends Model
 {
     use HasUuids;
 
@@ -17,9 +17,4 @@ class Member extends Model
         'full_name',
         'document_number',
     ];
-
-    public function loans()
-    {
-        return $this->hasMany(Loan::class);
-    }
 }

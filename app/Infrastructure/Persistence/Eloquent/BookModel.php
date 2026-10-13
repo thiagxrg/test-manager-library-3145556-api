@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Persistence\Eloquent;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class BookModel extends Model
 {
     use HasUuids;
 
@@ -30,11 +30,6 @@ class Book extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function isActive(): bool
-    {
-        return $this->deleted_at === null;
+        return $this->belongsTo(CategoryModel::class, 'category_id');
     }
 }
