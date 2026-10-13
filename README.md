@@ -1,50 +1,76 @@
 # test-manager-library-3145556-api
 
-> **Prueba técnica · Ficha ADSO 3145556**
-> Entrega: **martes 13 de octubre de 2026, a las 5:00 p. m.** (17:00, hora Colombia).
+Backend de **Manager Library**, en **PHP 8.2 + Laravel 12**, con arquitectura hexagonal estricta y Sanctum.
 
-Este repositorio es el **backend** de *Manager Library*, en **PHP con Laravel**. **Empieza vacío a propósito**: se construye en el fork de cada aprendiz.
+## Estado
 
-## Instrucciones
+- Tareas T-01 a T-13 del spec (autenticación, libros, miembros, préstamos, devoluciones, reporte y bootstrap con admin) están implementadas.
+- Endpoints disponibles bajo `/api/v1` (ver `spec-php/api-contract.md` en el repo `docs`).
+- Pendientes: tests de dominio/servicios/arquitectura, infra completa y validación end-to-end.
 
-Cada aprendiz debe **crear el fork** de los seis repositorios del proyecto y **resolver el proyecto
-con el spec planteado**.
+## Requisitos
 
-1. Hacer fork, a su cuenta de GitHub, de cada repositorio de la tabla del final.
-2. Leer el spec en [`test-manager-library-3145556-docs`](https://github.com/code-sena/test-manager-library-3145556-docs).
-   Se entrega en dos versiones: `spec-python/` y `spec-.net/`.
-3. Desarrollar en los forks.
+- PHP 8.2+
+- Composer
+- PostgreSQL 16 (o Docker)
 
-## El reto se desarrolla con React y PHP (Laravel)
+## Variables de entorno
 
-El spec está escrito para Python y para .NET, pero el reto **no** se hace en esos lenguajes:
+Ver `.env.example`. Mínimas para desarrollo local:
 
-| Capa | Tecnología del reto |
-|---|---|
-| Frontend | React |
-| Backend | PHP con Laravel |
+```env
+APP_URL=http://localhost
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=library
+DB_USERNAME=library
+DB_PASSWORD=library
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=change-me
+CORS_ORIGIN=http://localhost:5173
+```
 
-Lo que el spec define sobre el negocio —historias, criterios de aceptación, reglas, contrato de la
-API, modelo de datos— se respeta. Lo que define sobre la tecnología se traduce a React y Laravel.
+> Nota: una contraseña vacía es rechazada por validación.
 
-## La prueba no consiste en escribir el código
+## Ejecutar en local
 
-El propósito principal es ver la **capacidad de desempeño con SDD** (*Spec-Driven Development*,
-desarrollo guiado por especificación): cómo se lee, se interpreta y se aplica una especificación
-para llevarla a un stack distinto. El código es el medio, no el fin.
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
 
-## Entrega
+La API queda en `http://localhost:8000/api/v1`.
 
-Cuenta lo que quede **subido a los forks antes de las 5:00 p. m.** (17:00). Lo que llegue después no se revisa.
-No hay prórroga: suban avances parciales con commits pequeños durante la prueba.
+Salud:
+```bash
+curl http://localhost:8000/api/v1/health
+```
 
-## Los seis repositorios
+## Tests
 
-| Repositorio | Qué va ahí |
-|---|---|
-| [`test-manager-library-3145556-docs`](https://github.com/code-sena/test-manager-library-3145556-docs) | El spec: `spec-python/` y `spec-.net/` |
-| [`test-manager-library-3145556-api`](https://github.com/code-sena/test-manager-library-3145556-api) | Backend en PHP (Laravel) |
-| [`test-manager-library-3145556-app`](https://github.com/code-sena/test-manager-library-3145556-app) | Frontend en React |
-| [`test-manager-library-3145556-page`](https://github.com/code-sena/test-manager-library-3145556-page) | Sitio público estático de presentación |
-| [`test-manager-library-3145556-infra`](https://github.com/code-sena/test-manager-library-3145556-infra) | Contenedores, red, volúmenes y motor de base de datos vacío |
-| [`test-manager-library-3145556-tool`](https://github.com/code-sena/test-manager-library-3145556-tool) | Utilidades: sembrador de datos de demostración |
+```bash
+php artisan test
+```
+
+Para validar la migración con PostgreSQL, usar la configuración `DB_*` de Postgres.
+
+## Arquitectura
+
+Todo el dominio y los casos de uso viven en `src/Library/` bajo el namespace `Library\`. `app/` solo contiene glue de Laravel (providers, rutas, bootstrap).
+
+```
+src/Library/
+├── domain/                # Entidades, value objects y excepciones de negocio
+├── application/
+│   ├── ports/outbound/    # Interfaces (repositorios, clock, hasher, token issuer, storage, etc.)
+│   └── services/          # Casos de uso
+├── adapters/
+│   ├── inbound/http/      # Controllers, middleware y renderer de errores
+│   └── outbound/          # Eloquent, almacenamiento, seguridad
+└── bootstrap/composition/ # Único punto de composición (Article III)
+```
+
