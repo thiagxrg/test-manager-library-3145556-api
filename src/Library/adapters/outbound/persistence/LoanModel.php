@@ -14,6 +14,7 @@ class LoanModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id',
         'member_id',
         'loaned_by_user_id',
         'loaned_at',

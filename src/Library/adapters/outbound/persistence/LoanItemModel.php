@@ -14,6 +14,7 @@ class LoanItemModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id',
         'loan_id',
         'book_id',
         'book_title',

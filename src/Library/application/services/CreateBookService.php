@@ -18,9 +18,12 @@ class CreateBookService
     ) {
     }
 
-    public function handle(string $title, string $author, string $isbn, string $categoryId, int $totalCopies): Book
+    /** @return array{book: Book, category: \Library\Domain\Category} */
+    public function handle(string $title, string $author, string $isbn, string $categoryId, int $totalCopies): array
     {
-        if ($this->categories->findById($categoryId) === null) {
+        $category = $this->categories->findById($categoryId);
+
+        if ($category === null) {
             throw new ValidationException('Unknown category.', [['field' => 'category_id', 'issue' => 'does not exist']]);
         }
 
@@ -44,6 +47,6 @@ class CreateBookService
 
         $this->books->save($book);
 
-        return $book;
+        return ['book' => $book, 'category' => $category];
     }
 }

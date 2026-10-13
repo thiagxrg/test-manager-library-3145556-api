@@ -14,6 +14,7 @@ class MemberModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id',
         'full_name',
         'document_number',
     ];
